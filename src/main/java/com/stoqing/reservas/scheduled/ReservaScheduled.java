@@ -21,6 +21,7 @@ public class ReservaScheduled {
     private ReservaRepository reservaRepo;
     private EstadoRepository estadoRepo;
 
+    // cambiar a 60000
     @Scheduled(fixedRate = 5000)
     @Transactional
     public void cancelarReservaNoPagada(){

@@ -1,0 +1,319 @@
+/* common.css — Estilos compartidos entre todas las páginas */
+
+/* Variables globales */
+:root {
+    --bg:#ffffff;
+    --text:#111111;
+    --muted:#6b6f73;
+    --accent:#8b0000;
+    --card:#ffffff;
+    --radius:10px;
+
+    /* Colores de estado y variantes */
+    --green:#28a745;
+    --red:#dc3545;
+    --orange:#ff8c42;
+    --yellow:#ffc107;
+
+    --verde:#28a745;
+    --verde-oscuro:#1e7e34;
+    --rojo:#dc3545;
+    --naranja:#fd7e14;
+    --amarillo:#ffc107;
+}
+
+/* Reset básico */
+* {
+    box-sizing:border-box;
+}
+
+html, body {
+    height:100%;
+    margin:0;
+    font-family:"Plus Jakarta Sans","Segoe UI",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+}
+
+/* =========================
+   HEADER + BRAND + NAV
+   ========================= */
+
+.header {
+    background:#fff;
+    border-bottom:1px solid #e9e9e9;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+.header-inner {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 20px;
+    max-width:1200px;
+    margin:0 auto;
+}
+.brand {
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+}
+.brand-main {
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    color:var(--accent);
+    font-size:1.35rem;
+    letter-spacing:1px;
+}
+.brand-sub {
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-weight:400;
+    font-size:1.05rem;
+    color:var(--muted);
+}
+
+/* Nav con subrayado animado */
+.nav-links a {
+    margin-left:18px;
+    color:var(--text);
+    text-decoration:none;
+    font-weight:500;
+    position:relative;
+    padding-bottom:4px;
+    transition:color 0.3s ease;
+}
+.nav-links a::after {
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:0%;
+    height:2px;
+    background:var(--accent);
+    transition:width 0.3s ease;
+}
+.nav-links a:hover {
+    color:var(--accent);
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width:100%;
+}
+
+/* =========================
+   LAYOUT BÁSICO + CARD
+   ========================= */
+
+.container-main {
+    max-width:1200px;
+    margin:24px auto;
+    padding:0 16px;
+}
+
+.card {
+    background:var(--card);
+    border-radius:12px;
+    padding:18px;
+    box-shadow:0 8px 30px rgba(10,10,10,0.04);
+}
+
+/* =========================
+   BOTONES + INPUTS
+   ========================= */
+
+.btn {
+    transition:all 0.2s ease;
+    border-radius: 10px;
+    font-weight:500;
+}
+.btn:hover {
+    transform:translateY(-1px);
+}
+.btn-dark {
+    background:var(--accent);
+    border:none;
+    color:#fff !important;
+}
+.btn-dark:hover {
+    background:#a00000;
+    color:#fff !important;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(139,0,0,0.25);
+}
+
+/* Inputs genéricos */
+.form-label {
+    font-weight:500;
+    color:var(--text);
+    text-align:left;
+    display:block;
+    margin-bottom:6px;
+}
+.form-control {
+    border:1px solid #ccc;
+    border-radius:8px;
+    transition:all 0.2s ease;
+}
+.form-control:focus {
+    border-color:var(--accent);
+    box-shadow:0 0 0 0.2rem rgba(139,0,0,0.15);
+    transform:translateY(-1px);
+}
+
+/* Helpers */
+.small-muted {
+    color:var(--muted);
+    font-size:.9rem;
+}
+
+/* =========================
+   ESTADOS VACÍOS / MODAL
+   ========================= */
+
+.empty-state {
+    padding:20px;
+    text-align:center;
+    color:var(--muted);
+    font-style:italic;
+    background:#f8f9fa;
+    border-radius:8px;
+    border:2px dashed #dee2e6;
+}
+
+/* Modal overlay reutilizable */
+.modal-overlay {
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.45);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+}
+.modal-card {
+    background:#fff;
+    padding:18px;
+    border-radius:10px;
+    max-width:480px;
+    width:92%;
+    box-shadow:0 10px 40px rgba(0,0,0,0.25);
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
+.footer {
+    background:#fafafa;
+    border-top:1px solid #eee;
+    padding:24px 20px 8px 20px;
+    margin-top:24px;
+}
+.footer-wrap {
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+.footer-left,
+.footer-center,
+.footer-right {
+    flex:1;
+    min-width:220px;
+}
+
+/* Enlaces legales */
+.footer-left a {
+    display:block;
+    color:var(--muted);
+    text-decoration:none;
+    margin-bottom:6px;
+}
+
+/* Texto centro */
+.footer-center p {
+    color:var(--muted);
+    margin:0 0 6px 0;
+    text-align:center;
+}
+
+/* Horarios + redes (lado derecho) */
+.footer-right .horarios {
+    margin-bottom:12px;
+}
+.footer-right .horarios p {
+    color:var(--muted);
+    font-weight:200;
+    margin:0;
+    font-size:.9rem;
+    text-align:right;
+}
+.footer-right .social-block {
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+}
+.footer-right .social-block img {
+    width:28px;
+    height:28px;
+    transition:transform 0.3s ease;
+}
+.footer-right .social-block img:hover {
+    transform:scale(1.1);
+}
+
+/* Copyright */
+.footer-bottom {
+    max-width:1200px;
+    margin:10px auto 0 auto;
+    padding-top:8px;
+    text-align:center;
+    color:var(--muted);
+    font-size:0.9rem;
+}
+
+/* =========================
+   RESPONSIVE GENÉRICO
+   ========================= */
+
+@media (max-width:768px) {
+    .footer-wrap {
+        flex-direction:column;
+        text-align:center;
+    }
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        text-align:center;
+    }
+    .footer-right .horarios p {
+        text-align:center;
+    }
+    .footer-right .social-block {
+        justify-content:center;
+    }
+}
+
+@media (max-width:600px) {
+    .header-inner {
+        padding:12px;
+    }
+    .brand-main {
+        font-size:1rem;
+    }
+    .brand-sub {
+        font-size:0.9rem;
+    }
+    .nav-links a {
+        margin-left:10px;
+        font-size:.95rem;
+    }
+}

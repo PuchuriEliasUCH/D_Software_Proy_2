@@ -21,8 +21,4 @@ public class HomeController {
         return "pages/login";
     }
 
-    @GetMapping("/gestion_mesas")
-    public String mesas(){
-        return "pages/mesas";
-    }
 }

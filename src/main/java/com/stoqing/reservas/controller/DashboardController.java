@@ -36,8 +36,6 @@ public class DashboardController {
         LocalDate fecha,
         Model model
     ){
-        LocalDate fechaBusqueda= (fecha != null) ? fecha : LocalDate.now();
-
         model.addAttribute("cards", reservaService.listarCardSolicitud());
 
         return "fragments/dashboard/fragment_solicitudes :: fragmentSoli";
@@ -51,7 +49,7 @@ public class DashboardController {
         LocalDate fecha,
         Model model
     ){
-        LocalDate fechaBusqueda= (fecha != null) ? fecha : LocalDate.now();
+        LocalDate fechaBusqueda = (fecha != null) ? fecha : LocalDate.now();
 
         model.addAttribute("contadores", reservaService.listarContadoresDashboard(fechaBusqueda));
 

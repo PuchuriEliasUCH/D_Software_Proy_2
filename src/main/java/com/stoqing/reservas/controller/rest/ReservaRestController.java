@@ -40,6 +40,17 @@ public class ReservaRestController {
         return ResponseEntity.status(HttpStatus.OK).body(reservaService.findByEstado_Id(EstadosReserva.PAGO_PENDIENTE));
     }
 
+    @GetMapping("/listar_estado/{id}/{fecha}")
+    public ResponseEntity<?> listarPorFechaAndEstado(@PathVariable Integer id, @PathVariable LocalDate fecha){
+        if (id == 0){
+            return  ResponseEntity.status(HttpStatus.OK).body(
+                reservaService.findAll());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+            reservaService.findByEstado_IdAndFechaReserva(id, fecha));
+    }
+
     @Transactional
     @PostMapping("/crear")
     public ResponseEntity<?> crear(@RequestBody Reserva reserva){
@@ -48,7 +59,7 @@ public class ReservaRestController {
     }
 
     @GetMapping("/listar_fecha")
-    public ResponseEntity<?> listarFecha(@RequestParam LocalDate fecha){
+    public ResponseEntity<?> listarFecha(){
         return ResponseEntity.status(HttpStatus.OK).body(reservaService.listarCardSolicitud());
     }
 

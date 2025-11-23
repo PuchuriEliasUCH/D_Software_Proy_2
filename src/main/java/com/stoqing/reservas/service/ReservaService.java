@@ -24,13 +24,14 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class ReservaService {
-    private final MailService mailService;
     private ReservaRepository reservaRepo;
-    private EstadoRepository estadoRepo;
-    private WhatsAppService whatsAppService;
 
     public List<Reserva> findAll(){
         return reservaRepo.findAll();
+    }
+
+    public List<Reserva> findByEstado_IdAndFechaReserva(Integer id_estado, LocalDate fecha){
+        return reservaRepo.findByEstado_IdAndFechaReserva(id_estado, fecha);
     }
 
     public List<Reserva> findByEstado_Id(Integer id){
@@ -39,7 +40,7 @@ public class ReservaService {
 
     public void save(Reserva reserva){
         LocalDateTime actual = LocalDateTime.now(ZoneId.of("America/Lima"));
-        reserva.setExpira(actual.plusSeconds(15L));
+        reserva.setExpira(actual.plusSeconds(15L)); // cambiar a .plusMinutes(15L)
         reservaRepo.save(reserva);
         reservaRepo.asignarMesa(reserva.getCodigo(), reserva.getNumeroPersonas());
     }

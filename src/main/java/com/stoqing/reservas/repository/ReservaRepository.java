@@ -56,4 +56,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
         @Param("p_codigo") String p_codigo,
         @Param("p_numero_personas") int numPersonas
     );
+
+    List<Reserva> findByEstado_IdAndFechaReserva(int id_estado, LocalDate fechaReserva);
 }

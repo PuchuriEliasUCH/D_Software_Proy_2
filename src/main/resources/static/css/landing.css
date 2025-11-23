@@ -1,334 +1,147 @@
-:root {
-    --bg: #ffffff;
-    --text: #111111;
-    --muted: #6b6f73;
-    --accent: #8b0000;
-}
+@import "general.css";
 
-body {
-    margin: 0;
-    font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-}
-
-/* Header */
-.header {
-    background: #fff;
-    border-bottom: 1px solid #e9e9e9;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
-    max-width: 1100px; /* mismo ancho que admin-dashboard */
-    margin: 0 auto;
-}
-
-.brand {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-}
-
-.brand-main {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 1.35rem;
-    letter-spacing: 1px;
-}
-
-.brand-sub {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 400;
-    font-size: 1.05rem;
-    color: var(--muted);
-}
-
-/* NAV LINKS con subrayado animado */
-.nav-links a {
-    margin-left: 18px;
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 500;
-    position: relative;
-    padding-bottom: 4px;
-    transition: color 0.3s ease;
-}
-
-.nav-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    height: 2px;
-    background: var(--accent);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--accent);
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    width: 100%;
-}
-
-/* Hero */
+/* Hero principal */
 .hero {
-    background: url('../images/hero.png') center/cover no-repeat;
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background:url('../images/hero.png') center/cover no-repeat;
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .hero-overlay {
-    background: rgba(0, 0, 0, 0.55);
-    padding: 80px 30px;
-    text-align: center;
-    color: #fff;
-    border-radius: 14px;
-    max-width: 750px;
-    backdrop-filter: blur(1px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    background:rgba(0,0,0,0.55);
+    padding:80px 30px;
+    text-align:center;
+    color:#fff;
+    border-radius:14px;
+    max-width:750px;
+    backdrop-filter:blur(1px);
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
 }
 
 .hero h1 {
-    font-size: 3.6rem;
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
-    margin-bottom: 12px;
-    letter-spacing: 1px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeSlide 1.2s ease forwards 0.3s;
+    font-size:3.6rem;
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    margin-bottom:12px;
+    letter-spacing:1px;
+    opacity:0;
+    transform:translateY(20px);
+    animation:fadeSlide 1.2s ease forwards 0.3s;
 }
 
 .hero p {
-    font-size: 1.15rem;
-    font-weight: 300;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeSlide 1.2s ease forwards 0.6s;
+    font-size:1.15rem;
+    font-weight:300;
+    opacity:0;
+    transform:translateY(20px);
+    animation:fadeSlide 1.2s ease forwards 0.6s;
 }
 
+/* Eslogan bajo el título */
+.hero .slogan {
+    font-size:1.25rem;
+    font-weight:300;
+    margin-bottom:24px;
+    font-style:italic;
+    opacity:0;
+    transform:translateY(15px);
+    animation:fadeSlide 1.2s ease forwards 0.5s;
+}
+
+/* Botón refinado del hero */
 .hero .btn-refined {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeSlide 1.2s ease forwards 0.9s;
+    opacity:0;
+    transform:translateY(20px);
+    animation:fadeSlide 1.2s ease forwards 0.9s;
 }
 
+.btn-refined {
+    background:#fff;
+    color:#111;
+    border-radius:10px;
+    padding:12px 32px;
+    font-weight:500;
+    letter-spacing:0.5px;
+    border:2px solid #111;
+    transition:transform 0.3s ease, box-shadow 0.3s ease,
+    background 0.3s ease, color 0.3s ease;
+}
+.btn-refined:hover {
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(0,0,0,0.25);
+}
+
+/* Animación de entrada */
 @keyframes fadeSlide {
     to {
-        opacity: 1;
-        transform: translateY(0);
+        opacity:1;
+        transform:translateY(0);
     }
 }
 
-/* Botón refinado */
-.btn-refined {
-    background: #fff;
-    color: #111;
-    border-radius: 28px;
-    padding: 12px 32px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    border: 2px solid #111;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
-}
-
-.btn-refined:hover {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
-}
-
-/* Sections */
+/* Secciones genéricas debajo del hero */
 .section {
-    padding: 80px 20px;
+    padding:80px 20px;
 }
-
-.container-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px
-}
-
 .section h2 {
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 30px;
-    color: var(--accent);
+    font-family:'Playfair Display',serif;
+    margin-bottom:30px;
+    color:var(--accent);
 }
 
-/* Experiencias */
+/* Cards de experiencias / platos */
 .menu-card {
-    text-align: center;
-    border: none;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    text-align:center;
+    border:none;
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 6px 24px rgba(0,0,0,0.06);
+    transition:transform 0.4s ease, box-shadow 0.4s ease;
 }
-
 .menu-card img {
-    border-radius: 12px;
-    margin-bottom: 15px;
+    border-radius:12px;
+    margin-bottom:15px;
 }
-
 .menu-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 34px rgba(0, 0, 0, .16);
-}
-
-/* Animaciones al hacer scroll */
-.fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-up.appear {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.scale-in {
-    opacity: 0;
-    transform: scale(0.96);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.scale-in.appear {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Footer */
-.footer {
-    background: #fafafa;
-    border-top: 1px solid #eee;
-    padding: 24px 20px 8px 20px;
-    margin-top: 24px;
-}
-
-.footer-wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap
-}
-
-.footer-left, .footer-center, .footer-right {
-    flex: 1;
-    min-width: 220px
-}
-
-/* Izquierda: Legales */
-.footer-left a {
-    display: block;
-    color: var(--muted);
-    text-decoration: none;
-    margin-bottom: 6px;
-}
-
-/* Centro: contacto */
-.footer-center p {
-    color: var(--muted);
-    margin: 0 0 6px 0;
-    text-align: center;
-}
-
-/* Derecha: horario + redes */
-.footer-right .horarios {
-    margin-bottom: 12px;
-}
-
-.footer-right .horarios p {
-    color: var(--muted);
-    font-weight: 200;
-    margin: 0;
-    font-size: 0.9rem;
-    text-align: right;
-}
-
-.footer-right .social-block {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-}
-
-.footer-right .social-block img {
-    width: 28px;
-    height: 28px;
-    transition: transform 0.3s ease;
-}
-
-.footer-right .social-block img:hover {
-    transform: scale(1.1);
-}
-
-/* Copyright */
-.footer-bottom {
-    max-width: 1200px;
-    margin: 10px auto 0 auto;
-    padding-top: 8px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.9rem
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .footer-wrap {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .footer-left, .footer-center, .footer-right {
-        text-align: center;
-    }
-
-    .footer-right .horarios p {
-        text-align: center;
-    }
-
-    .footer-right .social-block {
-        justify-content: center;
-    }
-}
-
-/* Eslogan debajo del título */
-.hero .slogan {
-    font-size: 1.25rem;
-    font-weight: 300;
-    margin-bottom: 24px;
-    font-style: italic;
-    opacity: 0;
-    transform: translateY(15px);
-    animation: fadeSlide 1.2s ease forwards 0.5s;
+    transform:translateY(-6px);
+    box-shadow:0 14px 34px rgba(0,0,0,.16);
 }
 
 /* Descripción elegante de cada plato */
 .dish-desc {
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin-top: 8px;
-    font-style: italic;
-    line-height: 1.5;
+    font-size:0.95rem;
+    color:var(--muted);
+    margin-top:8px;
+    font-style:italic;
+    line-height:1.5;
 }
+
+/* Animaciones al hacer scroll */
+.fade-up {
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-up.appear {
+    opacity:1;
+    transform:translateY(0);
+}
+
+.scale-in {
+    opacity:0;
+    transform:scale(0.96);
+    transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.scale-in.appear {
+    opacity:1;
+    transform:scale(1);
+}
+
+/* Footer de la landing reutiliza el footer común */
