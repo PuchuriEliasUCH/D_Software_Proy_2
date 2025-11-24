@@ -22,7 +22,7 @@ public class ReservaScheduled {
     private EstadoRepository estadoRepo;
 
     // cambiar a 60000
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 120000)
     @Transactional
     public void cancelarReservaNoPagada(){
         LocalDateTime actual = LocalDateTime.now(ZoneId.of("America/Lima"));

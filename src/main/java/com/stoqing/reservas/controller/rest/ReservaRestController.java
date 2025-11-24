@@ -3,11 +3,11 @@ package com.stoqing.reservas.controller.rest;
 import com.stoqing.reservas.config.UserDetailsCustom;
 import com.stoqing.reservas.entities.dto.AceptarSolicitudDTO;
 import com.stoqing.reservas.entities.dto.EmailDTO;
+import com.stoqing.reservas.entities.model.AsignacionMesa;
 import com.stoqing.reservas.entities.model.Operario;
 import com.stoqing.reservas.entities.model.Reserva;
-import com.stoqing.reservas.service.MailService;
-import com.stoqing.reservas.service.ReservaService;
-import com.stoqing.reservas.service.WhatsAppService;
+import com.stoqing.reservas.repository.ReservaRepository;
+import com.stoqing.reservas.service.*;
 import com.stoqing.reservas.utils.EstadosReserva;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 
 @RestController
@@ -28,6 +30,8 @@ public class ReservaRestController {
     private final WhatsAppService whatsAppService;
     private final ReservaService reservaService;
     private final MailService mailService;
+    private final AsignacionMesaService asignacionMesaService;
+    private final MesaService mesaService;
 
     @Transactional(readOnly = true)
     @GetMapping("/listar_todo")
@@ -80,6 +84,10 @@ public class ReservaRestController {
 
         reservaService.aceptarSolicitudReserva(acepSoliDto);
 
+        AsignacionMesa asign = asignacionMesaService.finByIdReserva(id_reserva);
+
+        mesaService.cambiarEstadoMesa(asign.getMesa().getId(), 11);
+
         mailService.sendMail(new EmailDTO(reserva.getEmailContacto(), "Confirmacion de reserva", "xd", reserva));
 
 
@@ -102,6 +110,40 @@ public class ReservaRestController {
 
         return ResponseEntity.status(HttpStatus.OK).body("Reserva denegada");
     }
+
+    @Transactional
+    @PatchMapping("/actualizar_estados")
+    public ResponseEntity<?> actualizarEstado(@RequestParam Integer id_estado, @RequestParam int id_reserva){
+
+        LocalDateTime actual = LocalDateTime.now(ZoneId.of("America/Lima"));
+
+        UserDetailsCustom user =
+            (UserDetailsCustom) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Reserva reserva = reservaService.findById(id_reserva)
+            .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
+        if (
+            id_estado.equals(EstadosReserva.CANCELADO_EXPIRADO) ||
+                id_estado.equals(EstadosReserva.CANCELADO_INCONVENIENTES) ||
+                id_estado.equals(EstadosReserva.CANCELADO_NO_SHOW) ||
+                id_estado.equals(EstadosReserva.CANCELADO_CLIENTE) ||
+                id_estado.equals(EstadosReserva.FINALIZADA)
+        ){
+            reserva.getAudit().setDeletedAt(actual);
+        } else if (id_estado.equals(EstadosReserva.EN_CURSO)){
+
+        }
+
+        reserva.setExpira(null);
+        reserva.getAudit().setModifiedBy(user.getOperario().getId());
+
+        reservaService.actualizarEstadoReserva(id_estado, id_reserva);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Actualizado correctamente");
+    }
+
+
 
 
 }

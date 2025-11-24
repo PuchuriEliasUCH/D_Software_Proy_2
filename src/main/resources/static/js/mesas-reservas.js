@@ -175,3 +175,8 @@ function onMesaClick(numMesa) {
 }
 
 
+const cancelReserva = (id) => {
+    fetch('/api/reserva/')
+}
+
+

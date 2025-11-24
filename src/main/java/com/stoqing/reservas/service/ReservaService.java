@@ -24,6 +24,7 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class ReservaService {
+    private final MesaService mesaService;
     private ReservaRepository reservaRepo;
 
     public List<Reserva> findAll(){
@@ -44,7 +45,7 @@ public class ReservaService {
 
     public void save(Reserva reserva){
         LocalDateTime actual = LocalDateTime.now(ZoneId.of("America/Lima"));
-        reserva.setExpira(actual.plusSeconds(15L)); // cambiar a .plusMinutes(15L)
+        reserva.setExpira(actual.plusMinutes(15L)); // cambiar a .plusMinutes(15L)
         reservaRepo.save(reserva);
         reservaRepo.asignarMesa(reserva.getCodigo(), reserva.getNumeroPersonas());
     }
@@ -84,27 +85,6 @@ public class ReservaService {
     }
 
     public void actualizarEstadoReserva(Integer idEstado, Integer idReserva){
-        LocalDateTime actual = LocalDateTime.now(ZoneId.of("America/Lima"));
-
-        UserDetailsCustom user =
-            (UserDetailsCustom) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        Reserva reserva = reservaRepo.findById(idReserva)
-            .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
-
-        if (
-            idEstado.equals(EstadosReserva.CANCELADO_EXPIRADO) ||
-            idEstado.equals(EstadosReserva.CANCELADO_INCONVENIENTES) ||
-            idEstado.equals(EstadosReserva.CANCELADO_NO_SHOW) ||
-            idEstado.equals(EstadosReserva.CANCELADO_CLIENTE) ||
-            idEstado.equals(EstadosReserva.FINALIZADA)
-        ){
-            reserva.getAudit().setDeletedAt(actual);
-        }
-
-        reserva.setExpira(null);
-        reserva.getAudit().setModifiedBy(user.getOperario().getId());
-
         reservaRepo.actualizarEstadoReserva(idEstado, idReserva);
     }
 

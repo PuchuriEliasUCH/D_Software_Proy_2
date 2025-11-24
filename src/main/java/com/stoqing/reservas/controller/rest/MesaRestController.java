@@ -36,7 +36,7 @@ public class MesaRestController {
         @PathVariable int numMesa,
         @RequestBody CambiarEstadoMesaDTO body
     ) {
-        Mesa mesa = mesaService.cambiarEstadoMesa(numMesa, body.getNombreEstado());
+        Mesa mesa = mesaService.cambiarEstadoMesaFront(numMesa, body.getNombreEstado());
         MesaDTO dto = new MesaDTO(
             mesa.getId(),
             mesa.getCapacidad().name(),
