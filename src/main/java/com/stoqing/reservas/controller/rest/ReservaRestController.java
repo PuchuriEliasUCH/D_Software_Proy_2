@@ -4,6 +4,7 @@ import com.stoqing.reservas.config.UserDetailsCustom;
 import com.stoqing.reservas.entities.dto.AceptarSolicitudDTO;
 import com.stoqing.reservas.entities.dto.EmailDTO;
 import com.stoqing.reservas.entities.model.AsignacionMesa;
+import com.stoqing.reservas.entities.model.Mesa;
 import com.stoqing.reservas.entities.model.Operario;
 import com.stoqing.reservas.entities.model.Reserva;
 import com.stoqing.reservas.repository.ReservaRepository;
@@ -113,7 +114,7 @@ public class ReservaRestController {
 
     @Transactional
     @PatchMapping("/actualizar_estados")
-    public ResponseEntity<?> actualizarEstado(@RequestParam Integer id_estado, @RequestParam int id_reserva){
+    public ResponseEntity<?> actualizarEstado(@RequestParam Integer id_estado, @RequestParam Integer id_reserva){
 
         LocalDateTime actual = LocalDateTime.now(ZoneId.of("America/Lima"));
 
@@ -122,6 +123,8 @@ public class ReservaRestController {
 
         Reserva reserva = reservaService.findById(id_reserva)
             .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
+        Mesa mesa = mesaService.buscarMesaPorIdReserva(id_reserva);
 
         if (
             id_estado.equals(EstadosReserva.CANCELADO_EXPIRADO) ||
@@ -132,7 +135,7 @@ public class ReservaRestController {
         ){
             reserva.getAudit().setDeletedAt(actual);
         } else if (id_estado.equals(EstadosReserva.EN_CURSO)){
-
+            mesaService.cambiarEstadoMesa(mesa.getId(), id_estado);
         }
 
         reserva.setExpira(null);

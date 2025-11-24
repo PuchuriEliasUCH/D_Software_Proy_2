@@ -85,7 +85,7 @@
                 <button class="btn btn-sm btn-outline-danger"
                         type="button"
                         th:if="${!(reserva.estado.id == 7 or reserva.estado.id == 3 or reserva.estado.id == 4 or reserva.estado.id == 5 or reserva.estado.id == 8)}"
-                        th:onclick="'cancelReserva(' + ${reserva.id} + ')'">
+                        th:onclick="'cancelReserva(' + ${reserva.id} + ', '+ ${reserva.estado.id} +')'">
                     Cancelar
                 </button>
 

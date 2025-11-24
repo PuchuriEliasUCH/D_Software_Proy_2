@@ -25,10 +25,6 @@ public class MesaService {
         return mesaRepository.findAllByOrderByIdAsc();
     }
 
-    public Mesa buscarPorId(Integer id){
-        return mesaRepository.findById(id).orElse(null);
-    }
-
     public Mesa cambiarEstadoMesaFront(int numMesa, String nombreEstado) {
 
         UserDetailsCustom sessionUser =
@@ -49,5 +45,10 @@ public class MesaService {
 
     public void cambiarEstadoMesa(int numMesa, int id_estado) {
         mesaRepository.actualizarEstado(numMesa, id_estado);
+    }
+
+
+    public Mesa buscarMesaPorIdReserva(Integer id_reserva) {
+        return mesaRepository.findById_mesa(id_reserva);
     }
 }

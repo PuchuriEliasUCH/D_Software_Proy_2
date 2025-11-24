@@ -18,4 +18,7 @@ public interface MesaRepository extends JpaRepository<Mesa, Integer> {
         @Param("num_mesa") Integer num_mesa,
         @Param("id_estado") Integer id_estado
     );
+
+    @Query("select mesa from AsignacionMesa where reserva.id = :id_reserva")
+    Mesa findById_mesa(Integer id_reserva);
 }

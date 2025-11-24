@@ -175,8 +175,31 @@ function onMesaClick(numMesa) {
 }
 
 
-const cancelReserva = (id) => {
-    fetch('/api/reserva/')
-}
+const iniciarReserva = (id_reserva) => {
+    fetch(`/api/reserva/actualizar_estados?id_reserva=${id_reserva}&id_estado=6`, {
+        method: "PATCH"
+    })
+        .then(res => res.text())
+        .then(console.log)
+        .catch(console.error);
+};
+
+const finalizarReserva = (id_reserva) => {
+    fetch(`/api/reserva/actualizar_estados?id_reserva=${id_reserva}&id_estado=7`, {
+        method: "PATCH"
+    })
+        .then(res => res.text())
+        .then(console.log)
+        .catch(console.error);
+};
+
+const cancelReserva = (id_reserva, id_estado) => {
+    fetch(`/api/reserva/actualizar_estados?id_reserva=${id_reserva}&id_estado=${id_estado_cancelacion}`, {
+        method: "PATCH"
+    })
+        .then(res => res.text())
+        .then(console.log)
+        .catch(console.error);
+};
 
 
