@@ -1,6 +1,6 @@
 delimiter $$
 
-create trigger trg_cancelar_no_pago
+create trigger trg_cancelar
     after update on reserva
     for each row
 begin
@@ -29,7 +29,7 @@ begin
                 asignacion_mesa am
             set
                 am.deleted_at = now(),
-                am.modified_by = 1
+                am.modified_by = coalesce(new.modified_by, 1)
             where
                 am.id_reserva = new.id_reserva;
         end if;
