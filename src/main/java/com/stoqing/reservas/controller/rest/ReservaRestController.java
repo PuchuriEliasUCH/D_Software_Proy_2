@@ -45,15 +45,17 @@ public class ReservaRestController {
         return ResponseEntity.status(HttpStatus.OK).body(reservaService.findByEstado_Id(EstadosReserva.PAGO_PENDIENTE));
     }
 
-    @GetMapping("/listar_estado/{id}/{fecha}")
-    public ResponseEntity<?> listarPorFechaAndEstado(@PathVariable Integer id, @PathVariable LocalDate fecha){
+    @GetMapping("/listar_estado/{id}")
+    public ResponseEntity<?> listarPorFechaAndEstado(@PathVariable Integer id){
+        LocalDate hoy = LocalDate.now();
+
         if (id == 0){
             return  ResponseEntity.status(HttpStatus.OK).body(
                 reservaService.findAll());
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(
-            reservaService.findByEstado_IdAndFechaReserva(id, fecha));
+            reservaService.findByEstado_IdAndFechaReserva(id, hoy));
     }
 
     @Transactional
@@ -108,7 +110,6 @@ public class ReservaRestController {
     public ResponseEntity<?> denegarrSoli(@PathVariable int idReserva){
 
         reservaService.actualizarEstadoReserva(EstadosReserva.CANCELADO_INCONVENIENTES, idReserva);
-
         return ResponseEntity.status(HttpStatus.OK).body("Reserva denegada");
     }
 
@@ -126,6 +127,10 @@ public class ReservaRestController {
 
         Mesa mesa = mesaService.buscarMesaPorIdReserva(id_reserva);
 
+        reserva.setExpira(null);
+        reserva.getAudit().setModifiedBy(user.getOperario().getId());
+        mesa.getAudit().setModifiedBy(user.getOperario().getId());
+
         if (
             id_estado.equals(EstadosReserva.CANCELADO_EXPIRADO) ||
                 id_estado.equals(EstadosReserva.CANCELADO_INCONVENIENTES) ||
@@ -137,9 +142,6 @@ public class ReservaRestController {
         } else if (id_estado.equals(EstadosReserva.EN_CURSO)) {
             mesaService.cambiarEstadoMesa(mesa.getId(), 12);
         }
-
-        reserva.setExpira(null);
-        reserva.getAudit().setModifiedBy(user.getOperario().getId());
 
         reservaService.actualizarEstadoReserva(id_estado, id_reserva);
 

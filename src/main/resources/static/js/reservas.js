@@ -171,7 +171,6 @@ function buildReceiptHTML(r) {
       <div class="label">Fecha</div><div class="value">${r.fechaReserva}</div>
       <div class="label">Hora</div><div class="value">${slotDisplay(r.horaReserva)}</div>
       <div class="label">Personas</div><div class="value">${r.numeroPersonas}</div>
-      <div class="label">Mesa</div><div class="value">${r.mesa ? ('Mesa ' + r.mesaAsignada) : '-'}</div>
       <div class="label">Estado</div><div class="value">${statusLabel(r.estado)}</div>
     </div>
     ${r.comentarios ? `<div class="section"><div class="label">Comentarios</div><div>${r.comentarios}</div></div>` : ''}

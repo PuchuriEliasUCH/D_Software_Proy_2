@@ -174,19 +174,31 @@ function onMesaClick(numMesa) {
     modal.style.display = 'flex';
 }
 
+const relistar = () => {
+    const resMesas = document.getElementById("reservasDelDia");
+    const estado = document.getElementById("reservasEstadoFilter").value;
+
+    fetch(`/gestion_mesas/relistar/${estado}`)
+        .then(res => res.text())
+        .then(res => resMesas.innerHTML = res)
+        .catch(er => console.error(er))
+}
 
 const iniciarReserva = (id_reserva) => {
     fetch(`/api/reserva/actualizar_estados?id_reserva=${id_reserva}&id_estado=6`, {method: "PATCH"})
+        .then(res => cargarMesas())
         .catch(er => console.error(er));
 };
 
 const finalizarReserva = (id_reserva) => {
     fetch(`/api/reserva/actualizar_estados?id_reserva=${id_reserva}&id_estado=7`, {method: "PATCH"})
+        .then(res => cargarMesas())
         .catch(er => console.error(er));
 };
 
 const cancelReserva = (id_reserva, id_estado) => {
     fetch(`/api/reserva/actualizar_estados?id_reserva=${id_reserva}&id_estado=4`, {method: "PATCH"})
+        .then(res => cargarMesas())
         .catch(er => console.error(er));
 };
 

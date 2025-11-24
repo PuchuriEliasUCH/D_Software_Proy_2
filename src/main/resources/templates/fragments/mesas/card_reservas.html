@@ -1,14 +1,14 @@
-<div id="reservasDelDia" class="mesas-layout__reservas-list" th:fragment="cardRes(reservas)">
+<div id="reservasDelDia" class="mesas-layout__reservas-list" th:fragment="cardRes(otras_reservas)">
 
     <!-- Estado vacío -->
-    <div th:if="${reservas == null or #lists.isEmpty(reservas)}"
+    <div th:if="${otras_reservas == null or #lists.isEmpty(otras_reservas)}"
          class="empty-state">
         No hay reservas para
         <span th:text="${#temporals.format(hoy, 'dd/MM/yyyy')}">hoy</span>.
     </div>
 
     <!-- Lista de reservas -->
-    <div th:each="reserva : ${reservas}">
+    <div th:each="reserva : ${otras_reservas}">
 
         <div class="reserva-item">
             <!-- Línea superior: código, nombre, badge estado -->

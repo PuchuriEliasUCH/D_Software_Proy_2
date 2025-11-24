@@ -41,7 +41,8 @@ const confirmarPago = (idReserva) => {
 }
 
 const denegarSolicitud = (idReserva) => {
-    fetch(`/api/reserva/denegar_soli/${idReserva}`, {
+    // fetch(`/api/reserva/denegar_soli/${idReserva}`, {
+    fetch(`/api/reserva/actualizar_estados?id_estado=5&id_reserva=${idReserva}`, {
         method : "PATCH",
         headers: {
             "Content-Type": "application/json"

@@ -1,24 +1,8 @@
 <div class="mesas-layout__reservas" aria-label="Lista de reservas del día" th:fragment="listaReservas">
-    <div class="mesas-layout__reservas-header">
-        <h5 class="mb-0">Lista de reservas del día</h5>
-        <div class="mesas-layout__reservas-filter">
-            <label class="small-muted" for="reservasEstadoFilter">Filtrar por estado:</label>
-            <select id="reservasEstadoFilter" class="form-control" style="max-width:220px">
-                <option value="0" selected>Todas</option>
-                <option value="1">Pendiente de pago</option>
-                <option value="2">Programada</option>
-                <option value="6">En curso</option>
-                <option value="7">Finalizada</option>
-                <option value="3">Expiradas</option>
-                <option value="4">Cancelada por el cliente</option>
-                <option value="5">Cancelada por inconvenientes</option>
-                <option value="8">No show</option>
-            </select>
-        </div>
-    </div>
+
 
     <div id="reservasDelDia" class="mesas-layout__reservas-list"
-         th:replace="~{/fragments/mesas/card_reservas.html :: cardRes(reservas=${reservas})}"
+         th:replace="~{/fragments/mesas/card_reservas.html :: cardRes(otras_reservas=${otras_reservas})}"
     >
 
     </div>
